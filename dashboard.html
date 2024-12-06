@@ -3,21 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mobile Dashboard</title>
+  <title>Upload QR Code - Lonyibe Solutions</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome Icons -->
   <style>
     /* Prevent horizontal scrolling */
-    body {
+    body, html {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      overflow-x: hidden;
-      background: url('images/background.jpeg') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+      height: 100%;
+      width: 100%;
       box-sizing: border-box;
     }
 
@@ -39,6 +35,7 @@
     .navbar .logo {
       font-size: 1.5em;
       font-weight: bold;
+      color: white;
     }
 
     /* Hamburger Icon */
@@ -123,20 +120,65 @@
       margin-bottom: 20px;
     }
 
-    .content button {
-      background-color: #007bff;
+    /* File Upload Section */
+    .file-upload {
+      margin: 30px 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .file-upload input[type="file"] {
+      font-size: 1em;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 15px; /* Space between file input and button */
+    }
+
+    /* Modern Upload QR Code Button Styling */
+    .file-upload button {
+      background: linear-gradient(45deg, #6a11cb, #2575fc); /* Gradient color */
       border: none;
       padding: 12px 30px;
-      border-radius: 5px;
+      border-radius: 50px; /* Rounded corners */
       color: white;
       font-size: 1.1em;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-      width: 80%; /* Ensure button fits on mobile */
+      transition: background 0.3s ease, transform 0.3s ease;
+      width: 100%;
+      margin-top: 20px; /* Space between file input and button */
     }
 
-    .content button:hover {
-      background-color: #0056b3;
+    .file-upload button:hover {
+      background: linear-gradient(45deg, #2575fc, #6a11cb); /* Reverse gradient on hover */
+      transform: scale(1.05); /* Slightly enlarge on hover */
+    }
+
+    /* QR Code Feedback */
+    .qr-feedback {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      border-radius: 12px;
+      font-size: 0.9em;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      word-wrap: break-word;
+      font-size: 1em;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+      border: 2px solid #007bff;
+      text-align: center;
     }
 
     /* Footer Styling */
@@ -162,7 +204,7 @@
       }
 
       .content button {
-        width: 90%;
+        width: 100%;
       }
 
       .nav-links a {
@@ -173,8 +215,18 @@
       .content.margin-top {
         margin-top: 250px; /* Adjusted margin to give more space between navbar and content */
       }
-    }
 
+      /* Ensure the upload form takes full width on small screens */
+      .file-upload {
+        width: 100%;
+      }
+
+      /* Move the button slightly to the right on mobile */
+      .file-upload button {
+        margin-left: 10%; /* Push button to the right */
+        width: 80%; /* Make the button smaller */
+      }
+    }
   </style>
 </head>
 <body>
@@ -197,9 +249,17 @@
 
   <!-- Content -->
   <div class="content" id="content">
-    <h1>Welcome to Lonyibe Solutions</h1>
-    <p>Your home for digital solutions.</p>
-    <button onclick="window.location.href='exploretools.html'">Explore Tools</button>
+    <h1>Upload Your QR Code</h1>
+    <p>Choose a QR code image to upload, and we'll decode it for you!</p>
+    
+    <!-- File Upload Section -->
+    <div class="file-upload">
+      <input type="file" id="fileInput" accept="image/*" />
+      <button onclick="uploadQRCode()">Upload QR Code</button>
+    </div>
+
+    <!-- QR Code Feedback -->
+    <div id="qrFeedback" class="qr-feedback" style="display:none;"></div>
   </div>
 
   <!-- Footer -->
@@ -209,50 +269,77 @@
 
   <!-- Firebase Scripts -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+  <!-- QR Code Decoding API Script -->
   <script>
     // Firebase Configuration
     const firebaseConfig = {
-      apiKey: "AIzaSyAKpvE5uCQhFd0crg9GIDOsZrzAIoMdIA4",
-      authDomain: "lonyibe-login-form.firebaseapp.com",
-      projectId: "lonyibe-login-form",
-      storageBucket: "lonyibe-login-form.firebasestorage.app",
-      messagingSenderId: "465240417864",
-      appId: "1:465240417864:web:fb8a09e51bc64895761a7d",
-      measurementId: "G-BXJWDDZVLD"
+      apiKey: "AIzaSyAKpvE5uCQbKck4fvM9jkbTTbm99xshc6A4xjaY",
+      authDomain: "lonyibe-solutions.firebaseapp.com",
+      projectId: "lonyibe-solutions",
+      storageBucket: "lonyibe-solutions.appspot.com",
+      messagingSenderId: "262727673736",
+      appId: "1:262727673736:web:bd5b15699cf1700d44476c",
+      measurementId: "G-QWBCS4Z76G"
     };
 
     // Initialize Firebase
     const app = firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Restrict Access to Logged-In Users
-    auth.onAuthStateChanged((user) => {
-      if (!user) {
-        // No user is signed in, redirect to login page
-        window.location.href = "index.html";
-      }
-    });
-
-    // Hamburger Navigation Toggle
+    // Toggle Navigation Menu
     function toggleNav() {
       const navLinks = document.getElementById('nav-links');
       const content = document.getElementById('content');
       navLinks.classList.toggle('active');
-      content.classList.toggle('margin-top');  // Add margin to content when menu is active
+      content.classList.toggle('margin-top');
     }
 
-    // Logout Functionality
+    // Logout Function
     function logout() {
-      auth.signOut()
-        .then(() => {
-          window.location.href = "index.html"; // Redirect to login page after logout
+      auth.signOut().then(() => {
+        window.location.href = "index.html";
+      }).catch((error) => {
+        alert('Error logging out');
+      });
+    }
+
+    // Upload QR Code and Decode
+    function uploadQRCode() {
+      const fileInput = document.getElementById('fileInput');
+      const qrFeedback = document.getElementById('qrFeedback');
+
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+
+        // Use a third-party API (e.g., "QR Server" API) for decoding
+        fetch('https://api.qrserver.com/v1/read-qr-code/', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data[0].symbol[0].data) {
+            qrFeedback.textContent = 'Decoded QR Code: ' + data[0].symbol[0].data;
+            qrFeedback.style.display = 'block';
+          } else {
+            qrFeedback.textContent = 'No QR Code found!';
+            qrFeedback.style.display = 'block';
+          }
         })
         .catch((error) => {
-          console.error("Logout failed:", error);
+          qrFeedback.textContent = 'Error decoding QR code!';
+          qrFeedback.style.display = 'block';
         });
+      } else {
+        qrFeedback.textContent = 'Please select a file first!';
+        qrFeedback.style.display = 'block';
+      }
     }
   </script>
-
 </body>
 </html>
