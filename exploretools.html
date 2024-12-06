@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upload QR Code - Lonyibe Solutions</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome Icons -->
+  <title>Mobile QR Upload Page</title>
   <style>
     /* Prevent horizontal scrolling */
     body, html {
@@ -224,7 +223,7 @@
       /* Move the button slightly to the right on mobile */
       .file-upload button {
         margin-left: 10%; /* Push button to the right */
-        width: 80%; /* Make the button smaller */
+        width: 80%; /* Make the button a little smaller */
       }
 
       /* Center the navigation menu items on smaller screens */
@@ -235,45 +234,58 @@
         text-align: center;
       }
 
-      /* Center the Upload QR Code button on small screens */
-      .file-upload button {
-        margin-left: 10%; /* Center button by adding margin */
-        width: 80%; /* Make button a little smaller */
+      /* Center the Upload QR Code button in the middle of the page */
+      @media (max-width: 480px) {
+        .file-upload {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 300px; /* Fixed height to center button vertically */
+          flex-direction: column;
+        }
+
+        .file-upload button {
+          margin: 0 auto; /* Center button horizontally */
+          width: 60%; /* Slightly reduce the button width for mobile */
+        }
       }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
+  <!-- Navbar -->
   <div class="navbar">
     <div class="logo">Lonyibe Solutions</div>
-    <div class="hamburger" onclick="toggleNav()">
+    <div class="hamburger" onclick="toggleMenu()">
       <div></div>
       <div></div>
       <div></div>
     </div>
   </div>
 
-  <!-- Navigation Links -->
+  <!-- Navigation Menu -->
   <div class="nav-links" id="nav-links">
-    <a href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-    <a href="exploretools.html"><i class="fas fa-tools"></i> Tools</a>
-    <a href="#logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    <a href="#home"><i class="fas fa-home"></i> Home</a>
+    <a href="#tools"><i class="fas fa-tools"></i> Tools</a>
+    <a href="#services"><i class="fas fa-concierge-bell"></i> Services</a>
+    <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
   </div>
 
   <!-- Content -->
-  <div class="content" id="content">
-    <h1>Upload Your QR Code</h1>
-    <p>Choose a QR code image to upload, and we'll decode it for you!</p>
-    
+  <div class="content" id="home">
+    <h1>Welcome to Lonyibe Solutions</h1>
+    <p>Upload QR codes and get decoded results instantly!</p>
+
     <!-- File Upload Section -->
     <div class="file-upload">
-      <input type="file" id="fileInput" accept="image/*" />
-      <button onclick="uploadQRCode()">Upload QR Code</button>
+      <input type="file" id="qrInput" accept="image/*">
+      <button onclick="decodeQRCode()">Upload QR Code</button>
     </div>
 
     <!-- QR Code Feedback -->
-    <div id="qrFeedback" class="qr-feedback" style="display:none;"></div>
+    <div id="qrFeedback" class="qr-feedback" style="display: none;">
+      Decoded QR Code Result will appear here!
+    </div>
   </div>
 
   <!-- Footer -->
@@ -282,70 +294,45 @@
   </footer>
 
   <!-- Firebase Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+  <script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
 
+  <!-- Custom Scripts -->
   <script>
-    // Initialize Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyC9HQM4yD0bKck4fvM9jkbTTbm99xshc6A4xjaY",
-      authDomain: "lonyibe-solutions.firebaseapp.com",
-      projectId: "lonyibe-solutions",
-      storageBucket: "lonyibe-solutions.appspot.com",
-      messagingSenderId: "262727673736",
-      appId: "1:262727673736:web:bd5b15699cf1700d44476c",
-      measurementId: "G-QWBCS4Z76G"
-    };
-
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
-    function toggleNav() {
-      const navLinks = document.getElementById('nav-links');
-      const content = document.getElementById('content');
-      navLinks.classList.toggle('active');
-      content.classList.toggle('margin-top');
+    // Toggle Navigation Menu
+    function toggleMenu() {
+      document.getElementById("nav-links").classList.toggle("active");
+      document.getElementById("home").classList.toggle("margin-top");
     }
 
-    function logout() {
-      auth.signOut().then(() => {
-        window.location.href = "index.html";
-      }).catch((error) => {
-        alert('Error logging out');
-      });
-    }
+    // Decode QR Code
+    function decodeQRCode() {
+      const fileInput = document.getElementById("qrInput");
+      const file = fileInput.files[0];
+      const reader = new FileReader();
 
-    function uploadQRCode() {
-      const fileInput = document.getElementById('fileInput');
-      const qrFeedback = document.getElementById('qrFeedback');
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
 
-      if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        const formData = new FormData();
-        formData.append('file', file);
-
-        fetch('https://api.qrserver.com/v1/read-qr-code/', {
-          method: 'POST',
-          body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data[0].symbol[0].data) {
-            qrFeedback.textContent = 'Decoded QR Code: ' + data[0].symbol[0].data;
-            qrFeedback.style.display = 'block';
+          const qrCode = jsQR(ctx.getImageData(0, 0, canvas.width, canvas.height).data, canvas.width, canvas.height);
+          if (qrCode) {
+            document.getElementById("qrFeedback").innerText = "Decoded Text: " + qrCode.data;
+            document.getElementById("qrFeedback").style.display = "block";
           } else {
-            qrFeedback.textContent = 'No QR Code found!';
-            qrFeedback.style.display = 'block';
+            document.getElementById("qrFeedback").innerText = "No QR code found!";
+            document.getElementById("qrFeedback").style.display = "block";
           }
-        })
-        .catch((error) => {
-          qrFeedback.textContent = 'Error decoding QR code!';
-          qrFeedback.style.display = 'block';
-        });
-      } else {
-        qrFeedback.textContent = 'Please select a file first!';
-        qrFeedback.style.display = 'block';
-      }
+        }
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
     }
   </script>
 </body>
