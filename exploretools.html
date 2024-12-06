@@ -13,6 +13,7 @@
       height: 100%;
       width: 100%;
       box-sizing: border-box;
+      background-color: #f4f4f4;
     }
 
     .navbar {
@@ -34,40 +35,49 @@
       color: white;
     }
 
+    .content {
+      padding: 100px 20px 20px; /* Spacing for navbar */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
     .file-upload {
       margin: 20px 0;
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 20px;
-      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 10px;
       width: 90%;
       max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .file-upload input[type="file"] {
       font-size: 1em;
       padding: 10px;
+      border: 1px solid #ddd;
       border-radius: 5px;
       cursor: pointer;
       width: 100%;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .file-upload button {
       background: linear-gradient(45deg, #6a11cb, #2575fc);
       border: none;
-      padding: 12px 30px;
+      padding: 15px 30px;
       border-radius: 50px;
       color: white;
-      font-size: 1.1em;
+      font-size: 1.2em;
       cursor: pointer;
       transition: background 0.3s ease, transform 0.3s ease;
       width: 100%;
-      margin-top: 20px;
     }
 
     .file-upload button:hover {
@@ -77,37 +87,80 @@
 
     .qr-feedback {
       margin-top: 20px;
-      padding: 10px;
+      padding: 15px;
       background-color: rgba(0, 0, 0, 0.8);
       color: white;
       border-radius: 12px;
-      font-size: 0.8em;
-      max-width: 80%;
-      margin-left: auto;
-      margin-right: auto;
+      font-size: 0.9em;
+      max-width: 90%;
       word-wrap: break-word;
-      box-sizing: border-box;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
       border: 2px solid #007bff;
       text-align: center;
+    }
+
+    footer {
+      color: white;
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Responsive styles for smaller screens */
+    @media (max-width: 768px) {
+      .content {
+        padding: 80px 10px 20px; /* Adjust for smaller screens */
+      }
+
+      .file-upload {
+        padding: 20px;
+        width: 100%;
+      }
+
+      .file-upload button {
+        width: 80%;
+        margin: 0 auto; /* Center button on smaller screens */
+      }
+
+      .qr-feedback {
+        font-size: 0.8em; /* Adjust font size for smaller screens */
+        padding: 10px;
+      }
+    }
+
+    /* Responsive styles for extra small screens */
+    @media (max-width: 480px) {
+      .file-upload button {
+        width: 90%;
+        margin: 0 auto;
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- Navbar -->
   <div class="navbar">
     <div class="logo">Lonyibe Solutions</div>
   </div>
 
+  <!-- Content -->
   <div class="content">
+    <!-- File Upload Section -->
     <div class="file-upload">
       <input type="file" id="qrInput" accept="image/*">
       <button onclick="decodeQRCode()">Decode Now</button>
     </div>
 
+    <!-- QR Code Feedback -->
     <div id="qrFeedback" class="qr-feedback" style="display: none;">
       Decoded QR Code Result will appear here!
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
     <p>&copy; 2024 Lonyibe Solutions. All rights reserved.</p>
   </footer>
