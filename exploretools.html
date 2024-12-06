@@ -20,7 +20,7 @@
     /* Navbar */
     .navbar {
       display: flex;
-      justify-content: center; /* Centers the hamburger button */
+      justify-content: space-between; /* Centers hamburger button and places logo on right */
       align-items: center;
       padding: 10px 20px;
       position: fixed;
@@ -47,6 +47,14 @@
       height: 3px;
       width: 100%;
       transition: 0.3s ease;
+    }
+
+    /* Logo on the right */
+    .logo-right {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: white;
+      margin-left: 10px; /* Pushes logo a little to the left */
     }
 
     /* Navigation Menu */
@@ -184,6 +192,10 @@
       .hamburger {
         top: 10px; /* Keeps it centered on smaller screens */
       }
+
+      .logo-right {
+        font-size: 1.2em; /* Adjust logo size for smaller screens */
+      }
     }
 
     @media (max-width: 480px) {
@@ -199,6 +211,10 @@
       .hamburger {
         top: 10px; /* Keeps it centered on smaller screens */
       }
+
+      .logo-right {
+        font-size: 1.1em; /* Further reduces size of logo */
+      }
     }
   </style>
 </head>
@@ -211,6 +227,8 @@
       <div></div>
       <div></div>
     </div>
+    <!-- Logo on the right -->
+    <div class="logo-right">Lonyibe Tools</div>
   </div>
 
   <!-- Navigation Menu -->
