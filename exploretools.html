@@ -159,8 +159,16 @@
       padding: 10px;
       background-color: rgba(0, 0, 0, 0.8);
       color: white;
-      border-radius: 5px;
-      font-size: 1.1em;
+      border-radius: 12px;
+      font-size: 0.9em;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      word-wrap: break-word;
+      font-size: 1em;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+      border: 2px solid #007bff;
+      text-align: center;
     }
 
     /* Footer Styling */
@@ -273,10 +281,10 @@
       const navLinks = document.getElementById('nav-links');
       const content = document.getElementById('content');
       navLinks.classList.toggle('active');
-      content.classList.toggle('margin-top');
+      content.classList.toggle('margin-top'); // Push content down
     }
 
-    // Logout Functionality
+    // Logout Function
     function logout() {
       auth.signOut().then(() => {
         window.location.href = "index.html";
@@ -295,7 +303,7 @@
         const formData = new FormData();
         formData.append('file', file);
 
-        // Use a third-party API (e.g., "Zebra Medical" QR Code API) for decoding
+        // Use a third-party API (e.g., "QR Server" API) for decoding
         fetch('https://api.qrserver.com/v1/read-qr-code/', {
           method: 'POST',
           body: formData
