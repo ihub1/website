@@ -121,7 +121,7 @@
 
     /* File Upload Section */
     .file-upload {
-      margin: 30px 0;
+      margin: 20px 0;
       background-color: rgba(255, 255, 255, 0.8);
       padding: 20px;
       border-radius: 8px;
@@ -254,6 +254,11 @@
       .content {
         margin-top: 10px !important; /* Adjust content to be very close to the top */
       }
+
+      /* Move the buttons up on small screen, right under the navbar */
+      .file-upload {
+        margin-top: 50px; /* Reduced margin, close to navbar */
+      }
     }
   </style>
 </head>
@@ -294,16 +299,18 @@
 
   <!-- Footer -->
   <footer>
-    &copy; 2024 Lonyibe Solutions. All rights reserved.
+    <p>&copy; 2024 Lonyibe Solutions. All rights reserved.</p>
   </footer>
 
-  <script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.js"></script>
   <script>
+    // Toggle the navigation menu on hamburger click
     function toggleMenu() {
       document.getElementById("nav-links").classList.toggle("active");
       document.getElementById("home").classList.toggle("margin-top");
     }
 
+    // Function to decode QR code
     function decodeQRCode() {
       const fileInput = document.getElementById("qrInput");
       const file = fileInput.files[0];
