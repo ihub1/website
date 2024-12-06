@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>Mobile Dashboard</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,192 +12,143 @@
       background-size: cover;
       color: white;
       height: 100vh;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: -1;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Navbar Styling */
     .navbar {
-      padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: white;
-      background: transparent;
-      position: relative;
+      padding: 15px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 999;
     }
 
-    .navbar .nav-links {
+    .navbar .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    /* Hamburger Icon */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 22px;
+      width: 30px;
+      cursor: pointer;
+    }
+
+    .hamburger div {
+      background-color: white;
+      height: 4px;
+      width: 100%;
+      transition: 0.3s ease;
+    }
+
+    /* Navigation Menu */
+    .nav-links {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      text-align: center;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 10px;
+    }
+
+    .nav-links.active {
+      display: flex;
+    }
+
+    .nav-links a {
+      color: white;
+      font-size: 1.2em;
+      margin: 15px 0;
+      text-decoration: none;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      text-align: center;
+      padding: 10px 0;
     }
 
-    .navbar a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-size: 1em;
-      display: flex;
-      align-items: center;
-      transition: color 0.3s ease;
-    }
-
-    .navbar a i {
+    .nav-links a i {
       margin-right: 8px;
-      font-size: 1.1em;
     }
 
-    .navbar a:hover {
-      color: #007bff;
-      text-decoration: underline;
+    /* Content Styling */
+    .content {
+      flex-grow: 1;
+      text-align: center;
+      margin-top: 100px;
+      padding: 20px;
     }
 
-    .navbar .logout-btn {
-      background-color: #ff4d4d;
+    .content h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .content p {
+      font-size: 1.2em;
+      color: #ddd;
+      margin-bottom: 20px;
+    }
+
+    .content button {
+      background-color: #007bff;
       border: none;
-      padding: 5px 15px;
+      padding: 12px 30px;
       border-radius: 5px;
       color: white;
+      font-size: 1.1em;
       cursor: pointer;
-      font-size: 1em;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+      transition: background-color 0.3s ease;
     }
 
-    .navbar .logout-btn:hover {
-      background-color: #007bff;
-      transform: scale(1.05);
+    .content button:hover {
+      background-color: #0056b3;
     }
 
-    /* Main Content Styling */
-    .main-content {
-      text-align: center;
-      padding: 50px 20px;
-    }
-
-    .main-content h1 {
-      color: #ffffff;
-      margin-bottom: 20px;
-      font-size: 3em;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-
-    .main-content p {
-      font-size: 1.5em;
-      color: #dddddd;
-      margin-bottom: 20px;
-      font-style: italic;
-      text-transform: capitalize;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    /* Hover animation */
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Footer */
+    /* Footer Styling */
     footer {
       color: white;
       text-align: center;
       padding: 10px;
-      background: transparent;
+      background: rgba(0, 0, 0, 0.7);
+      position: absolute;
+      bottom: 0;
+      width: 100%;
     }
 
-    /* Section Buttons */
-    .main-content button {
-      background-color: #007bff;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .main-content button:hover {
-      background-color: #0056b3;
-      transform: scale(1.05);
-    }
-
-    /* Mobile Responsiveness */
+    /* Mobile Specific Styles */
     @media (max-width: 768px) {
-      /* Make Navbar Links Stack Vertically */
-      .navbar .nav-links {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        background: rgba(0, 0, 0, 0.8);
-        display: none; /* Hide navigation by default */
-        width: 100%;
-        text-align: center;
+      .content h1 {
+        font-size: 1.8em;
       }
 
-      .navbar .nav-links.active {
-        display: flex; /* Show navigation when active */
+      .content p {
+        font-size: 1em;
       }
 
-      .navbar a {
-        margin: 10px 0;
+      .content button {
+        width: 80%;
+      }
+
+      .nav-links a {
         font-size: 1.2em;
-        width: 100%;
-        text-align: center;
-        padding: 10px 20px;
-      }
-
-      .navbar i {
-        margin-right: 10px; /* Adjust margin for icons */
-      }
-
-      /* Hamburger Icon Positioning */
-      .navbar .hamburger {
-        display: block;
-        font-size: 2.5em;
-        cursor: pointer;
-        z-index: 9999;
-        position: absolute;
-        top: 15px;
-        right: 20px;
-      }
-
-      .navbar .hamburger div {
-        background-color: white;
-        height: 4px;
-        width: 30px;
-        margin: 6px 0;
-        transition: all 0.3s ease;
-      }
-
-      /* Hide logout button on mobile */
-      .navbar .logout-btn {
-        display: none;
-      }
-    }
-
-    /* Large screen adjustments */
-    @media (min-width: 769px) {
-      /* Show logout button on larger screens */
-      .navbar .logout-btn {
-        display: block;
       }
     }
   </style>
@@ -205,14 +156,7 @@
 <body>
   <!-- Navigation Bar -->
   <div class="navbar">
-    <div class="nav-links">
-      <a href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-      <a href="#tools"><i class="fas fa-tools"></i> Tools</a>
-      <a href="#services"><i class="fas fa-concierge-bell"></i> Services</a>
-      <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
-    </div>
-    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-    <!-- Hamburger Menu -->
+    <div class="logo">Lonyibe Solutions</div>
     <div class="hamburger" onclick="toggleNav()">
       <div></div>
       <div></div>
@@ -220,32 +164,19 @@
     </div>
   </div>
 
-  <!-- Main Content -->
-  <div class="main-content" id="home">
+  <!-- Navigation Links -->
+  <div class="nav-links" id="nav-links">
+    <a href="dashboard.html"><i class="fas fa-home"></i> Home</a>
+    <a href="#tools"><i class="fas fa-tools"></i> Tools</a>
+    <a href="#services"><i class="fas fa-concierge-bell"></i> Services</a>
+    <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
     <h1>Welcome to Lonyibe Solutions</h1>
-    <p>Your Home for Digital Solutions</p>
-  </div>
-
-  <!-- Tools Section -->
-  <div class="main-content" id="tools">
-    <h1>Tools</h1>
-    <p>Explore a range of tools designed to make your tasks easier.</p>
-    <!-- Explore Tools Button -->
+    <p>Your home for digital solutions.</p>
     <button onclick="window.location.href='exploretools.html'">Explore Tools</button>
-  </div>
-
-  <!-- Services Section -->
-  <div class="main-content" id="services">
-    <h1>Services</h1>
-    <p>Learn more about the services we offer to support your goals.</p>
-    <button>View Services</button>
-  </div>
-
-  <!-- Contact Us Section -->
-  <div class="main-content" id="contact">
-    <h1>Contact Us</h1>
-    <p>Have any questions? Feel free to reach out!</p>
-    <button>Contact Us</button>
   </div>
 
   <!-- Footer -->
@@ -280,23 +211,12 @@
       }
     });
 
-    // Logout Functionality
-    function logout() {
-      auth.signOut()
-        .then(() => {
-          // Redirect to login page
-          window.location.href = "index.html";
-        })
-        .catch((error) => {
-          console.error("Logout failed:", error);
-        });
-    }
-
     // Hamburger Navigation Toggle
     function toggleNav() {
-      const navLinks = document.querySelector(".nav-links");
-      navLinks.classList.toggle("active");
+      const navLinks = document.getElementById('nav-links');
+      navLinks.classList.toggle('active');
     }
   </script>
+
 </body>
 </html>
