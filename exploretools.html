@@ -37,7 +37,6 @@
       color: white;
     }
 
-    /* Hamburger button */
     .hamburger {
       display: flex;
       flex-direction: column;
@@ -45,10 +44,9 @@
       height: 20px;
       width: 25px;
       cursor: pointer;
-      position: fixed;  /* Make it fixed at the top right */
+      position: absolute;
       top: 20px;
-      right: 20px; /* Keep it aligned to the right */
-      z-index: 1000;  /* Ensures it stays on top of other elements */
+      right: 20px; /* Adjusted for better visibility */
     }
 
     .hamburger div {
@@ -58,7 +56,6 @@
       transition: 0.3s ease;
     }
 
-    /* Navigation Menu */
     .nav-links {
       position: absolute;
       top: 60px;
@@ -191,8 +188,8 @@
       }
 
       .hamburger {
-        top: 15px; /* Keeps it more centered on smaller screens */
-        right: 15px;
+        top: 15px; /* Adjusted for small screens */
+        right: 15px; /* Adjusted for small screens */
       }
     }
 
@@ -207,8 +204,8 @@
       }
 
       .hamburger {
-        top: 10px; /* Moves hamburger closer to top */
-        right: 10px; /* Adjusts to be visible */
+        top: 10px; /* Adjusted for very small screens */
+        right: 10px; /* Adjusted for very small screens */
       }
     }
   </style>
