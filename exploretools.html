@@ -130,6 +130,9 @@
       max-width: 500px;
       margin-left: auto;
       margin-right: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .file-upload input[type="file"] {
@@ -138,6 +141,7 @@
       border-radius: 5px;
       cursor: pointer;
       width: 100%;
+      margin-bottom: 15px; /* Space between file input and button */
     }
 
     .file-upload button {
@@ -150,7 +154,6 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       width: 100%;
-      margin-top: 15px;
     }
 
     .file-upload button:hover {
