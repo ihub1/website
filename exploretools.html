@@ -144,20 +144,23 @@
       margin-bottom: 15px; /* Space between file input and button */
     }
 
+    /* Modern Upload QR Code Button Styling */
     .file-upload button {
-      background-color: #007bff;
+      background: linear-gradient(45deg, #6a11cb, #2575fc); /* Gradient color */
       border: none;
       padding: 12px 30px;
-      border-radius: 5px;
+      border-radius: 50px; /* Rounded corners */
       color: white;
       font-size: 1.1em;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s ease, transform 0.3s ease;
       width: 100%;
+      margin-top: 20px; /* Space between file input and button */
     }
 
     .file-upload button:hover {
-      background-color: #0056b3;
+      background: linear-gradient(45deg, #2575fc, #6a11cb); /* Reverse gradient on hover */
+      transform: scale(1.05); /* Slightly enlarge on hover */
     }
 
     /* QR Code Feedback */
@@ -217,6 +220,26 @@
       .file-upload {
         width: 100%;
       }
+
+      /* Move the button slightly to the right on mobile */
+      .file-upload button {
+        margin-left: 10%; /* Push button to the right */
+        width: 80%; /* Make the button smaller */
+      }
+
+      /* Center the navigation menu items on smaller screens */
+      .nav-links a {
+        font-size: 1.3em;
+        padding: 15px;
+        width: 100%;
+        text-align: center;
+      }
+
+      /* Center the Upload QR Code button on small screens */
+      .file-upload button {
+        margin-left: 10%; /* Center button by adding margin */
+        width: 80%; /* Make button a little smaller */
+      }
     }
   </style>
 </head>
@@ -259,36 +282,31 @@
   </footer>
 
   <!-- Firebase Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
 
-  <!-- QR Code Decoding API Script -->
   <script>
-    // Firebase Configuration
+    // Initialize Firebase
     const firebaseConfig = {
-      apiKey: "AIzaSyAKpvE5uCQhFd0crg9GIDOsZrzAIoMdIA4",
-      authDomain: "lonyibe-login-form.firebaseapp.com",
-      projectId: "lonyibe-login-form",
-      storageBucket: "lonyibe-login-form.firebasestorage.app",
-      messagingSenderId: "465240417864",
-      appId: "1:465240417864:web:fb8a09e51bc64895761a7d",
-      measurementId: "G-BXJWDDZVLD"
+      apiKey: "AIzaSyC9HQM4yD0bKck4fvM9jkbTTbm99xshc6A4xjaY",
+      authDomain: "lonyibe-solutions.firebaseapp.com",
+      projectId: "lonyibe-solutions",
+      storageBucket: "lonyibe-solutions.appspot.com",
+      messagingSenderId: "262727673736",
+      appId: "1:262727673736:web:bd5b15699cf1700d44476c",
+      measurementId: "G-QWBCS4Z76G"
     };
 
-    // Initialize Firebase
     const app = firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Toggle Navigation Menu
     function toggleNav() {
       const navLinks = document.getElementById('nav-links');
       const content = document.getElementById('content');
       navLinks.classList.toggle('active');
-      content.classList.toggle('margin-top'); // Push content down
+      content.classList.toggle('margin-top');
     }
 
-    // Logout Function
     function logout() {
       auth.signOut().then(() => {
         window.location.href = "index.html";
@@ -297,7 +315,6 @@
       });
     }
 
-    // Upload QR Code and Decode
     function uploadQRCode() {
       const fileInput = document.getElementById('fileInput');
       const qrFeedback = document.getElementById('qrFeedback');
@@ -307,7 +324,6 @@
         const formData = new FormData();
         formData.append('file', file);
 
-        // Use a third-party API (e.g., "QR Server" API) for decoding
         fetch('https://api.qrserver.com/v1/read-qr-code/', {
           method: 'POST',
           body: formData
