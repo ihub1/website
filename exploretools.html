@@ -20,7 +20,7 @@
     /* Navbar */
     .navbar {
       display: flex;
-      justify-content: space-between; /* Centers hamburger button and places logo on right */
+      justify-content: space-between;
       align-items: center;
       padding: 10px 20px;
       position: fixed;
@@ -54,7 +54,7 @@
       font-size: 1.5em;
       font-weight: bold;
       color: white;
-      margin-left: 10px; /* Pushes logo a little to the left */
+      margin-right: 60px; /* Pushes logo slightly to the left */
     }
 
     /* Navigation Menu */
@@ -193,15 +193,28 @@
         top: 10px; /* Keeps it centered on smaller screens */
       }
 
-      .logo-right {
-        font-size: 1.2em; /* Adjust logo size for smaller screens */
-      }
-    }
+      /* For Larger Screens */
+.logo-right {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+  margin-right: 40px; /* Adjust this to ensure the logo stays visible */
+}
 
-    @media (max-width: 480px) {
-      .content {
-        padding: 60px 10px 20px;
-      }
+/* Responsive Styles for Smaller Screens */
+@media (max-width: 768px) {
+  .logo-right {
+    font-size: 1.2em; /* Adjust logo size for smaller screens */
+    margin-right: 30px; /* Adjusted for better visibility on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-right {
+    font-size: 1.1em; /* Further adjust size for very small screens */
+    margin-right: 20px; /* Further reduce margin for even smaller screens */
+  }
+}
 
       .file-upload button {
         width: 90%;
@@ -214,6 +227,7 @@
 
       .logo-right {
         font-size: 1.1em; /* Further reduces size of logo */
+        margin-right: 5px; /* Adjusts logo position on small screens */
       }
     }
   </style>
