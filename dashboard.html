@@ -29,17 +29,15 @@
     .navbar {
       padding: 10px 20px;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       color: white;
       background: transparent;
-      position: relative;
     }
 
     .navbar .nav-links {
       display: flex;
       align-items: center;
-      justify-content: center; /* Center the navigation buttons */
     }
 
     .navbar a {
@@ -62,26 +60,51 @@
       text-decoration: underline;
     }
 
-    /* Hamburger Menu */
-    .navbar .hamburger {
-      display: none;
+    .navbar .logout-btn {
+      background-color: #ff4d4d;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 5px;
+      color: white;
       cursor: pointer;
-      font-size: 2.5em;
-      z-index: 9999;
+      font-size: 1em;
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
-    .hamburger div {
-      background-color: white;
-      height: 4px;
-      width: 30px;
-      margin: 6px 0;
-      transition: all 0.3s ease;
+    .navbar .logout-btn:hover {
+      background-color: #007bff;
+      transform: scale(1.05);
     }
 
     /* Main Content Styling */
     .main-content {
       text-align: center;
       padding: 50px 20px;
+    }
+
+    .main-content h1 {
+      color: #ffffff;
+      margin-bottom: 20px;
+      font-size: 3em;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .main-content p {
+      font-size: 1.5em;
+      color: #dddddd;
+      margin-bottom: 20px;
+      font-style: italic;
+      text-transform: capitalize;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    /* Hover animation */
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     /* Footer */
@@ -92,81 +115,93 @@
       background: transparent;
     }
 
+    /* Section Buttons */
+    .main-content button {
+      background-color: #007bff;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .main-content button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
     /* Mobile Responsiveness */
     @media (max-width: 768px) {
-      /* Make Navbar Links Stack Vertically on Small Screens */
+      /* Make Navbar Links Stack Vertically */
       .navbar .nav-links {
-        display: none;
         flex-direction: column;
         align-items: center;
+        width: 100%;
         position: absolute;
         top: 60px;
         left: 0;
         background: rgba(0, 0, 0, 0.8);
-        width: 100%;
-        padding: 10px 0;
-        transition: all 0.3s ease;
+        display: none; /* Hide navigation by default */
       }
 
       .navbar .nav-links.active {
-        display: flex;
+        display: flex; /* Show navigation when active */
       }
 
       .navbar a {
-        margin: 5px 0;
-        padding: 10px 20px;
-        font-size: 0.9em;
-        text-align: left;
+        margin: 10px 0;
+        font-size: 1.1em;
         width: 100%;
+        text-align: center;
+        padding: 10px 20px;
         text-transform: uppercase;
       }
 
       /* Hamburger Icon Positioning */
       .navbar .hamburger {
         display: block;
+        font-size: 2.5em;
+        cursor: pointer;
+        z-index: 9999;
         position: absolute;
         top: 15px;
         right: 20px;
-        z-index: 9999;
+      }
+
+      .navbar .hamburger div {
+        background-color: white;
+        height: 4px;
+        width: 30px;
+        margin: 6px 0;
+        transition: all 0.3s ease;
       }
 
       .main-content h1 {
-        font-size: 2em;
-        margin-bottom: 15px;
+        font-size: 2.5em;
       }
 
       .main-content p {
-        font-size: 1.2em;
-        margin-bottom: 15px;
+        font-size: 1.3em;
       }
 
       .main-content button {
         font-size: 1.1em;
-        padding: 10px 20px;
+        padding: 12px 25px;
+      }
+
+      /* Hide logout button on mobile */
+      .navbar .logout-btn {
+        display: none;
       }
     }
 
-    /* Extra Small Devices (Phone Portrait) */
-    @media (max-width: 480px) {
-      .navbar .nav-links {
-        flex-direction: column;
-        align-items: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-      }
-
-      .navbar .hamburger {
-        font-size: 3em;
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        z-index: 1;
-      }
-
-      .navbar a {
-        margin: 10px 0;
+    /* Large screen adjustments */
+    @media (min-width: 769px) {
+      /* Show logout button on larger screens */
+      .navbar .logout-btn {
+        display: block;
       }
     }
   </style>
@@ -188,6 +223,8 @@
       <div></div>
       <div></div>
     </div>
+    <!-- Logout Button -->
+    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
   </div>
 
   <!-- Main Content -->
@@ -249,7 +286,7 @@
       }
     });
 
-    // Logout Functionality (Removed logout button)
+    // Logout Functionality
     function logout() {
       auth.signOut()
         .then(() => {
