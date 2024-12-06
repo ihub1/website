@@ -35,6 +35,63 @@
       color: white;
     }
 
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 20px;
+      width: 25px;
+      cursor: pointer;
+    }
+
+    .hamburger div {
+      background-color: white;
+      height: 3px;
+      width: 100%;
+      transition: 0.3s ease;
+    }
+
+    .nav-links {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      text-align: center;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 10px;
+      z-index: 998;
+    }
+
+    .nav-links.active {
+      display: flex;
+    }
+
+    .nav-links a {
+      color: white;
+      font-size: 1.3em;
+      margin: 15px 0;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 10px 0;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-links a i {
+      margin-right: 10px;
+      font-size: 1.5em;
+    }
+
+    .nav-links a:hover {
+      background-color: #007bff;
+      transform: scale(1.05);
+    }
+
     .content {
       padding: 100px 20px 20px;
       display: flex;
@@ -108,10 +165,9 @@
       box-sizing: border-box;
     }
 
-    /* Responsive styles for smaller screens */
     @media (max-width: 768px) {
       .content {
-        padding: 70px 10px 20px; /* Reduced padding for smaller screens */
+        padding: 70px 10px 20px;
       }
 
       .file-upload {
@@ -130,10 +186,9 @@
       }
     }
 
-    /* Responsive styles for extra small screens */
     @media (max-width: 480px) {
       .content {
-        padding: 50px 10px 20px; /* Push contents further up on extra small screens */
+        padding: 50px 10px 20px;
       }
 
       .file-upload button {
@@ -148,28 +203,41 @@
   <!-- Navbar -->
   <div class="navbar">
     <div class="logo">Lonyibe Solutions</div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <!-- Navigation Menu -->
+  <div class="nav-links" id="nav-links">
+    <a href="#home"><i class="fas fa-home"></i> Home</a>
+    <a href="#tools"><i class="fas fa-tools"></i> Tools</a>
+    <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
   </div>
 
   <!-- Content -->
   <div class="content">
-    <!-- File Upload Section -->
     <div class="file-upload">
       <input type="file" id="qrInput" accept="image/*">
       <button onclick="decodeQRCode()">Decode Now</button>
     </div>
 
-    <!-- QR Code Feedback -->
     <div id="qrFeedback" class="qr-feedback" style="display: none;">
       Decoded QR Code Result will appear here!
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
     <p>&copy; 2024 Lonyibe Solutions. All rights reserved.</p>
   </footer>
 
   <script>
+    function toggleMenu() {
+      document.getElementById("nav-links").classList.toggle("active");
+    }
+
     async function decodeQRCode() {
       const fileInput = document.getElementById("qrInput");
       const file = fileInput.files[0];
