@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upload File - Lonyibe Solutions</title>
+  <title>Upload QR Code - Lonyibe Solutions</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome Icons -->
   <style>
     /* Prevent horizontal scrolling */
@@ -153,303 +153,14 @@
       background-color: #0056b3;
     }
 
-    /* Footer Styling */
-    footer {
-      color: white;
-      text-align: center;
+    /* QR Code Feedback */
+    .qr-feedback {
+      margin-top: 20px;
       padding: 10px;
-      background: rgba(0, 0, 0, 0.7);
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    /* Mobile Specific Styles */
-    @media (max-width: 768px) {
-      .content h1 {
-        font-size: 1.8em;
-      }
-
-      .content p {
-        font-size: 1em;
-      }
-
-      .content button {
-        width: 90%;
-      }
-
-      .nav-links a {
-        font-size: 1.2em;
-      }
-
-      /* When nav menu is active, push content down */
-      .content.margin-top {
-        margin-top: 250px; /* Adjusted margin to give more space between navbar and content */
-      }
-    }
-  </style>
-</head>
-<body>
-  <!-- Navigation Bar -->
-  <div class="navbar">
-    <div class="logo">Lonyibe Solutions</div>
-    <div class="hamburger" onclick="toggleNav()">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
-
-  <!-- Navigation Links -->
-  <div class="nav-links" id="nav-links">
-    <a href="dashboard.html"><i class="fas fa-home"></i> Home</a>
-    <a href="exploretools.html"><i class="fas fa-tools"></i> Tools</a>
-    <a href="#logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
-  </div>
-
-  <!-- Content -->
-  <div class="content" id="content">
-    <h1>Upload Your File</h1>
-    <p>Choose a file to upload. Supported formats are PDF, Word, Excel, etc.</p>
-    
-    <!-- File Upload Section -->
-    <div class="file-upload">
-      <input type="file" id="fileInput" />
-      <button onclick="uploadFile()">Upload File</button>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    &copy; 2024 Lonyibe Solutions. All Rights Reserved.
-  </footer>
-
-  <!-- Firebase Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script>
-    // Firebase Configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyAKpvE5uCQhFd0crg9GIDOsZrzAIoMdIA4",
-      authDomain: "lonyibe-login-form.firebaseapp.com",
-      projectId: "lonyibe-login-form",
-      storageBucket: "lonyibe-login-form.firebasestorage.app",
-      messagingSenderId: "465240417864",
-      appId: "1:465240417864:web:fb8a09e51bc64895761a7d",
-      measurementId: "G-BXJWDDZVLD"
-    };
-
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const storage = firebase.storage();
-
-    // Restrict Access to Logged-In Users
-    auth.onAuthStateChanged((user) => {
-      if (!user) {
-        // No user is signed in, redirect to login page
-        window.location.href = "index.html";
-      }
-    });
-
-    // Hamburger Navigation Toggle
-    function toggleNav() {
-      const navLinks = document.getElementById('nav-links');
-      const content = document.getElementById('content');
-      navLinks.classList.toggle('active');
-      content.classList.toggle('margin-top');  // Add margin to content when menu is active
-    }
-
-    // Logout Functionality
-    function logout() {
-      auth.signOut()
-        .then(() => {
-          window.location.href = "index.html"; // Redirect to login page after logout
-        })
-        .catch((error) => {
-          console.error("Logout failed:", error);
-        });
-    }
-
-    // File Upload Functionality
-    function uploadFile() {
-      const fileInput = document.getElementById('fileInput');
-      const file = fileInput.files[0];
-      
-      if (file) {
-        const storageRef = storage.ref();
-        const fileRef = storageRef.child('uploads/' + file.name);
-
-        fileRef.put(file).then((snapshot) => {
-          console.log('File uploaded successfully!');
-          alert('File uploaded successfully!');
-        }).catch((error) => {
-          console.error("Error uploading file:", error);
-          alert('Error uploading file!');
-        });
-      } else {
-        alert('Please select a file first.');
-      }
-    }
-  </script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upload File - Lonyibe Solutions</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome Icons -->
-  <style>
-    /* Prevent horizontal scrolling */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-      background: url('images/background.jpeg') no-repeat center center fixed;
-      background-size: cover;
+      background-color: rgba(0, 0, 0, 0.8);
       color: white;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-    }
-
-    /* Navbar Styling */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      z-index: 999;
-      box-sizing: border-box;
-    }
-
-    .navbar .logo {
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-
-    /* Hamburger Icon */
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 22px;
-      width: 30px;
-      cursor: pointer;
-    }
-
-    .hamburger div {
-      background-color: white;
-      height: 4px;
-      width: 100%;
-      transition: 0.3s ease;
-    }
-
-    /* Navigation Menu */
-    .nav-links {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
-      text-align: center;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 10px;
-      z-index: 998;
-    }
-
-    .nav-links.active {
-      display: flex;
-    }
-
-    .nav-links a {
-      color: white;
-      font-size: 1.3em;
-      margin: 15px 0;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 10px 0;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-
-    .nav-links a i {
-      margin-right: 10px;
-      font-size: 1.5em;
-    }
-
-    .nav-links a:hover {
-      background-color: #007bff;
-      transform: scale(1.05);
-    }
-
-    /* Content Styling */
-    .content {
-      text-align: center;
-      margin-top: 100px; /* Space for navbar */
-      padding: 20px;
-      width: 100%;
-      box-sizing: border-box;
-      transition: margin-top 0.3s ease; /* Smooth transition */
-    }
-
-    .content h1 {
-      font-size: 2em;
-      margin-bottom: 20px;
-      font-weight: bold;
-      color: white;
-    }
-
-    .content p {
-      font-size: 1.2em;
-      color: #ddd;
-      margin-bottom: 20px;
-    }
-
-    /* File Upload Section */
-    .file-upload {
-      margin: 30px 0;
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 20px;
-      border-radius: 8px;
-    }
-
-    .file-upload input[type="file"] {
-      font-size: 1em;
-      padding: 10px;
       border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .file-upload button {
-      background-color: #007bff;
-      border: none;
-      padding: 12px 30px;
-      border-radius: 5px;
-      color: white;
       font-size: 1.1em;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .file-upload button:hover {
-      background-color: #0056b3;
     }
 
     /* Footer Styling */
@@ -509,14 +220,17 @@
 
   <!-- Content -->
   <div class="content" id="content">
-    <h1>Upload Your File</h1>
-    <p>Choose a file to upload. Supported formats are PDF, Word, Excel, etc.</p>
+    <h1>Upload Your QR Code</h1>
+    <p>Choose a QR code image to upload, and we'll decode it for you!</p>
     
     <!-- File Upload Section -->
     <div class="file-upload">
-      <input type="file" id="fileInput" />
-      <button onclick="uploadFile()">Upload File</button>
+      <input type="file" id="fileInput" accept="image/*" />
+      <button onclick="uploadQRCode()">Upload QR Code</button>
     </div>
+
+    <!-- QR Code Feedback -->
+    <div id="qrFeedback" class="qr-feedback" style="display:none;"></div>
   </div>
 
   <!-- Footer -->
@@ -528,6 +242,8 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+  <!-- QR Code Decoding API Script -->
   <script>
     // Firebase Configuration
     const firebaseConfig = {
@@ -548,8 +264,7 @@
     // Restrict Access to Logged-In Users
     auth.onAuthStateChanged((user) => {
       if (!user) {
-        // No user is signed in, redirect to login page
-        window.location.href = "index.html";
+        window.location.href = "index.html"; // No user is signed in
       }
     });
 
@@ -558,41 +273,52 @@
       const navLinks = document.getElementById('nav-links');
       const content = document.getElementById('content');
       navLinks.classList.toggle('active');
-      content.classList.toggle('margin-top');  // Add margin to content when menu is active
+      content.classList.toggle('margin-top');
     }
 
     // Logout Functionality
     function logout() {
-      auth.signOut()
-        .then(() => {
-          window.location.href = "index.html"; // Redirect to login page after logout
-        })
-        .catch((error) => {
-          console.error("Logout failed:", error);
-        });
+      auth.signOut().then(() => {
+        window.location.href = "index.html";
+      }).catch((error) => {
+        alert('Error logging out');
+      });
     }
 
-    // File Upload Functionality
-    function uploadFile() {
+    // Upload QR Code and Decode
+    function uploadQRCode() {
       const fileInput = document.getElementById('fileInput');
-      const file = fileInput.files[0];
-      
-      if (file) {
-        const storageRef = storage.ref();
-        const fileRef = storageRef.child('uploads/' + file.name);
+      const qrFeedback = document.getElementById('qrFeedback');
 
-        fileRef.put(file).then((snapshot) => {
-          console.log('File uploaded successfully!');
-          alert('File uploaded successfully!');
-        }).catch((error) => {
-          console.error("Error uploading file:", error);
-          alert('Error uploading file!');
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+
+        // Use a third-party API (e.g., "Zebra Medical" QR Code API) for decoding
+        fetch('https://api.qrserver.com/v1/read-qr-code/', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data[0].symbol[0].data) {
+            qrFeedback.textContent = 'Decoded QR Code: ' + data[0].symbol[0].data;
+            qrFeedback.style.display = 'block';
+          } else {
+            qrFeedback.textContent = 'No QR Code found!';
+            qrFeedback.style.display = 'block';
+          }
+        })
+        .catch((error) => {
+          qrFeedback.textContent = 'Error decoding QR code!';
+          qrFeedback.style.display = 'block';
         });
       } else {
-        alert('Please select a file first.');
+        qrFeedback.textContent = 'Please select a file first!';
+        qrFeedback.style.display = 'block';
       }
     }
   </script>
-
 </body>
 </html>
