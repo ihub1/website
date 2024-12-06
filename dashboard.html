@@ -5,15 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mobile Dashboard</title>
   <style>
+    /* Prevent horizontal scrolling */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
+      padding: 0;
+      overflow-x: hidden;
       background: url('images/background.jpeg') no-repeat center center fixed;
       background-size: cover;
       color: white;
       height: 100vh;
       display: flex;
       flex-direction: column;
+      box-sizing: border-box;
     }
 
     /* Navbar Styling */
@@ -28,6 +32,7 @@
       width: 100%;
       background-color: rgba(0, 0, 0, 0.7);
       z-index: 999;
+      box-sizing: border-box;
     }
 
     .navbar .logo {
@@ -92,6 +97,8 @@
       text-align: center;
       margin-top: 100px;
       padding: 20px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .content h1 {
@@ -116,6 +123,7 @@
       font-size: 1.1em;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      width: 80%; /* Ensure button fits on mobile */
     }
 
     .content button:hover {
@@ -131,6 +139,7 @@
       position: absolute;
       bottom: 0;
       width: 100%;
+      box-sizing: border-box;
     }
 
     /* Mobile Specific Styles */
@@ -144,13 +153,14 @@
       }
 
       .content button {
-        width: 80%;
+        width: 90%;
       }
 
       .nav-links a {
         font-size: 1.2em;
       }
     }
+
   </style>
 </head>
 <body>
