@@ -249,6 +249,11 @@
           width: 60%; /* Slightly reduce the button width for mobile */
         }
       }
+
+      /* Move content to the top as much as possible */
+      .content {
+        margin-top: 10px !important; /* Adjust content to be very close to the top */
+      }
     }
   </style>
 </head>
@@ -290,23 +295,16 @@
 
   <!-- Footer -->
   <footer>
-    &copy; 2024 Lonyibe Solutions. All Rights Reserved.
+    &copy; 2024 Lonyibe Solutions. All rights reserved.
   </footer>
 
-  <!-- Firebase Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
   <script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
-
-  <!-- Custom Scripts -->
   <script>
-    // Toggle Navigation Menu
     function toggleMenu() {
       document.getElementById("nav-links").classList.toggle("active");
       document.getElementById("home").classList.toggle("margin-top");
     }
 
-    // Decode QR Code
     function decodeQRCode() {
       const fileInput = document.getElementById("qrInput");
       const file = fileInput.files[0];
