@@ -157,7 +157,7 @@
 
       .navbar a {
         margin: 10px 0;
-        font-size: 1.1em;
+        font-size: 0.9em; /* Make links smaller on small screens */
         width: 100%;
         text-align: center;
         padding: 10px 20px;
@@ -210,8 +210,6 @@
       }
     }
   </style>
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
   <!-- Navigation Bar -->
@@ -222,14 +220,13 @@
       <a href="#services"><i class="fas fa-concierge-bell"></i> Services</a>
       <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
     </div>
-    <!-- Hamburger Icon -->
-    <div class="hamburger" onclick="toggleMenu()">
+    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    <!-- Hamburger Menu -->
+    <div class="hamburger" onclick="toggleNav()">
       <div></div>
       <div></div>
       <div></div>
     </div>
-    <!-- Logout Button -->
-    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
   </div>
 
   <!-- Main Content -->
@@ -242,6 +239,7 @@
   <div class="main-content" id="tools">
     <h1>Tools</h1>
     <p>Explore a range of tools designed to make your tasks easier.</p>
+    <!-- Explore Tools Button -->
     <button onclick="window.location.href='exploretools.html'">Explore Tools</button>
   </div>
 
@@ -268,7 +266,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script>
-    // Firebase Configuration (Same as in index.html)
+    // Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyAKpvE5uCQhFd0crg9GIDOsZrzAIoMdIA4",
       authDomain: "lonyibe-login-form.firebaseapp.com",
@@ -295,18 +293,18 @@
     function logout() {
       auth.signOut()
         .then(() => {
-          // Redirect to login page
+          // Redirect to login page after successful logout
           window.location.href = "index.html";
         })
         .catch((error) => {
-          console.error("Logout failed:", error);
+          console.error("Logout error: ", error);
         });
     }
 
-    // Mobile Menu Toggle
-    function toggleMenu() {
-      const navLinks = document.querySelector('.navbar .nav-links');
-      navLinks.classList.toggle('active');
+    // Hamburger Navigation Toggle
+    function toggleNav() {
+      const navLinks = document.querySelector(".nav-links");
+      navLinks.classList.toggle("active");
     }
   </script>
 </body>
