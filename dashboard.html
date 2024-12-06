@@ -29,7 +29,7 @@
     .navbar {
       padding: 10px 20px;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       color: white;
       background: transparent;
@@ -39,12 +39,13 @@
     .navbar .nav-links {
       display: flex;
       align-items: center;
+      justify-content: center; /* Center the navigation buttons */
     }
 
     .navbar a {
       color: white;
       text-decoration: none;
-      margin: 0 10px;
+      margin: 0 15px;
       font-size: 1em;
       display: flex;
       align-items: center;
@@ -59,26 +60,6 @@
     .navbar a:hover {
       color: #007bff;
       text-decoration: underline;
-    }
-
-    .navbar .logout-btn {
-      background-color: #ff4d4d;
-      border: none;
-      padding: 5px 15px;
-      border-radius: 5px;
-      color: white;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-      position: absolute;
-      top: 150px; /* Position behind the "Contact Us" button */
-      right: 20px;
-      z-index: 0;
-    }
-
-    .navbar .logout-btn:hover {
-      background-color: #007bff;
-      transform: scale(1.05);
     }
 
     /* Hamburger Menu */
@@ -103,8 +84,17 @@
       padding: 50px 20px;
     }
 
+    /* Footer */
+    footer {
+      color: white;
+      text-align: center;
+      padding: 10px;
+      background: transparent;
+    }
+
     /* Mobile Responsiveness */
     @media (max-width: 768px) {
+      /* Make Navbar Links Stack Vertically on Small Screens */
       .navbar .nav-links {
         display: none;
         flex-direction: column;
@@ -140,16 +130,19 @@
         z-index: 9999;
       }
 
-      /* Hide logout button by default on mobile screens */
-      .navbar .logout-btn {
-        display: none;
+      .main-content h1 {
+        font-size: 2em;
+        margin-bottom: 15px;
       }
 
-      /* Move the logout button behind the "Contact Us" button on small screens */
-      .navbar .logout-btn {
-        top: 150px;
-        right: 20px;
-        z-index: 0;
+      .main-content p {
+        font-size: 1.2em;
+        margin-bottom: 15px;
+      }
+
+      .main-content button {
+        font-size: 1.1em;
+        padding: 10px 20px;
       }
     }
 
@@ -175,29 +168,6 @@
       .navbar a {
         margin: 10px 0;
       }
-
-      .navbar .logout-btn {
-        font-size: 0.9em;
-        padding: 5px 10px;
-        top: 140px; /* Ensure it's behind the "Contact Us" button */
-        right: 20px;
-        z-index: 0;
-      }
-
-      .main-content h1 {
-        font-size: 2em;
-        margin-bottom: 15px;
-      }
-
-      .main-content p {
-        font-size: 1.2em;
-        margin-bottom: 15px;
-      }
-
-      .main-content button {
-        font-size: 1.1em;
-        padding: 10px 20px;
-      }
     }
   </style>
   <!-- Font Awesome for Icons -->
@@ -212,7 +182,6 @@
       <a href="#services"><i class="fas fa-concierge-bell"></i> Services</a>
       <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
     </div>
-    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
     <!-- Hamburger Icon -->
     <div class="hamburger" onclick="toggleMenu()">
       <div></div>
@@ -280,7 +249,7 @@
       }
     });
 
-    // Logout Functionality
+    // Logout Functionality (Removed logout button)
     function logout() {
       auth.signOut()
         .then(() => {
@@ -295,14 +264,7 @@
     // Mobile Menu Toggle
     function toggleMenu() {
       const navLinks = document.querySelector('.navbar .nav-links');
-      const logoutBtn = document.querySelector('.navbar .logout-btn');
       navLinks.classList.toggle('active');
-      // Toggle the visibility of the logout button
-      if (navLinks.classList.contains('active')) {
-        logoutBtn.style.display = 'block';
-      } else {
-        logoutBtn.style.display = 'none';
-      }
     }
   </script>
 </body>
