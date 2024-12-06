@@ -39,54 +39,24 @@
       margin-right: 40px; /* Adjust this to ensure the logo stays visible */
     }
 
-    /* Navigation Button */
-    .nav-button {
-      background-color: #007bff;
+    /* Static Navigation Buttons */
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-buttons a {
       color: white;
       font-size: 1.2em;
-      padding: 10px 20px;
-      border: none;
+      text-decoration: none;
+      padding: 8px 16px;
+      background-color: #007bff;
       border-radius: 5px;
-      cursor: pointer;
       transition: background 0.3s ease;
     }
 
-    .nav-button:hover {
+    .nav-buttons a:hover {
       background-color: #0056b3;
-    }
-
-    /* Navigation Menu */
-    .nav-links {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
-      text-align: center;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 10px;
-      z-index: 998;
-    }
-
-    .nav-links.active {
-      display: flex;
-    }
-
-    .nav-links a {
-      color: white;
-      font-size: 1.2em;
-      margin: 10px 0;
-      text-decoration: none;
-      transition: background 0.3s ease, transform 0.3s ease;
-      width: 100%;
-      padding: 10px 0;
-    }
-
-    .nav-links a:hover {
-      background-color: #007bff;
-      transform: scale(1.05);
     }
 
     /* Content */
@@ -173,9 +143,9 @@
         margin-right: 30px;
       }
 
-      .nav-button {
+      .nav-buttons a {
         font-size: 1.1em;
-        padding: 8px 16px;
+        padding: 8px 14px;
       }
     }
 
@@ -185,7 +155,7 @@
         margin-right: 20px;
       }
 
-      .nav-button {
+      .nav-buttons a {
         font-size: 1em;
         padding: 6px 12px;
       }
@@ -196,18 +166,15 @@
 
   <!-- Navbar -->
   <div class="navbar">
-    <!-- Navigation Button -->
-    <button class="nav-button" onclick="toggleMenu()">Menu</button>
-
     <!-- Logo on the right -->
     <div class="logo-right">Lonyibe Tools</div>
-  </div>
 
-  <!-- Navigation Menu -->
-  <div class="nav-links" id="nav-links">
-    <a href="#home">Home</a>
-    <a href="#tools">Tools</a>
-    <a href="#contact">Contact Us</a>
+    <!-- Static Navigation Buttons -->
+    <div class="nav-buttons">
+      <a href="#home">Home</a>
+      <a href="#tools">Tools</a>
+      <a href="#contact">Contact Us</a>
+    </div>
   </div>
 
   <!-- Content -->
@@ -227,10 +194,6 @@
   </footer>
 
   <script>
-    function toggleMenu() {
-      document.getElementById("nav-links").classList.toggle("active");
-    }
-
     async function decodeQRCode() {
       const fileInput = document.getElementById("qrInput");
       const file = fileInput.files[0];
