@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mobile QR Upload Page</title>
+  <title>QR Code Decoder</title>
   <style>
+    /* General Styles */
     body, html {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -16,16 +17,17 @@
       background-color: #f4f4f4;
     }
 
+    /* Navbar */
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
+      padding: 10px 20px;
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.8);
       z-index: 999;
     }
 
@@ -35,6 +37,7 @@
       color: white;
     }
 
+    /* Hamburger button */
     .hamburger {
       display: flex;
       flex-direction: column;
@@ -42,6 +45,10 @@
       height: 20px;
       width: 25px;
       cursor: pointer;
+      position: fixed;  /* Make it fixed at the top right */
+      top: 20px;
+      right: 20px; /* Keep it aligned to the right */
+      z-index: 1000;  /* Ensures it stays on top of other elements */
     }
 
     .hamburger div {
@@ -51,6 +58,7 @@
       transition: 0.3s ease;
     }
 
+    /* Navigation Menu */
     .nav-links {
       position: absolute;
       top: 60px;
@@ -71,20 +79,12 @@
 
     .nav-links a {
       color: white;
-      font-size: 1.3em;
-      margin: 15px 0;
+      font-size: 1.2em;
+      margin: 10px 0;
       text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      transition: background 0.3s ease, transform 0.3s ease;
       width: 100%;
       padding: 10px 0;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-
-    .nav-links a i {
-      margin-right: 10px;
-      font-size: 1.5em;
     }
 
     .nav-links a:hover {
@@ -92,8 +92,9 @@
       transform: scale(1.05);
     }
 
+    /* Content */
     .content {
-      padding: 100px 20px 20px;
+      padding: 80px 20px 20px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -102,6 +103,7 @@
       box-sizing: border-box;
     }
 
+    /* File Upload Section */
     .file-upload {
       margin: 10px 0;
       background-color: rgba(255, 255, 255, 0.9);
@@ -142,6 +144,7 @@
       transform: scale(1.05);
     }
 
+    /* QR Feedback */
     .qr-feedback {
       margin-top: 20px;
       padding: 15px;
@@ -156,6 +159,7 @@
       text-align: center;
     }
 
+    /* Footer */
     footer {
       color: white;
       text-align: center;
@@ -165,6 +169,7 @@
       box-sizing: border-box;
     }
 
+    /* Responsive Styles */
     @media (max-width: 768px) {
       .content {
         padding: 70px 10px 20px;
@@ -184,16 +189,26 @@
         font-size: 0.8em;
         padding: 10px;
       }
+
+      .hamburger {
+        top: 15px; /* Keeps it more centered on smaller screens */
+        right: 15px;
+      }
     }
 
     @media (max-width: 480px) {
       .content {
-        padding: 50px 10px 20px;
+        padding: 60px 10px 20px;
       }
 
       .file-upload button {
         width: 90%;
         margin: 0 auto;
+      }
+
+      .hamburger {
+        top: 10px; /* Moves hamburger closer to top */
+        right: 10px; /* Adjusts to be visible */
       }
     }
   </style>
@@ -212,9 +227,9 @@
 
   <!-- Navigation Menu -->
   <div class="nav-links" id="nav-links">
-    <a href="#home"><i class="fas fa-home"></i> Home</a>
-    <a href="#tools"><i class="fas fa-tools"></i> Tools</a>
-    <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
+    <a href="#home">Home</a>
+    <a href="#tools">Tools</a>
+    <a href="#contact">Contact Us</a>
   </div>
 
   <!-- Content -->
@@ -241,7 +256,7 @@
     async function decodeQRCode() {
       const fileInput = document.getElementById("qrInput");
       const file = fileInput.files[0];
-      
+
       if (!file) {
         alert("Please upload an image first!");
         return;
