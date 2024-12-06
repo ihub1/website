@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Code Decoder</title>
+  <title>Mobile Focused Website</title>
   <style>
     /* General Styles */
     body, html {
@@ -22,7 +22,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
+      padding: 15px 20px;
       position: fixed;
       top: 0;
       left: 0;
@@ -31,42 +31,40 @@
       z-index: 999;
     }
 
-    /* Logo on the right */
-    .logo-right {
-      font-size: 1.5em;
-      font-weight: bold;
-      color: white;
-      margin-right: 40px; /* Adjust this to ensure the logo stays visible */
-    }
-
-    /* Static Navigation Buttons */
-    .nav-buttons {
+    .nav-links {
       display: flex;
-      gap: 15px;
+      justify-content: space-around;
+      width: 100%;
     }
 
-    .nav-buttons a {
+    .nav-links a {
       color: white;
       font-size: 1.2em;
       text-decoration: none;
-      padding: 8px 16px;
-      background-color: #007bff;
-      border-radius: 5px;
-      transition: background 0.3s ease;
+      padding: 10px;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
 
-    .nav-buttons a:hover {
-      background-color: #0056b3;
+    .nav-links a:hover {
+      background-color: #007bff;
+      transform: scale(1.05);
+    }
+
+    /* Logo */
+    .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: white;
     }
 
     /* Content */
     .content {
-      padding: 80px 20px 20px;
+      margin-top: 60px;
+      padding: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      min-height: 100vh;
       box-sizing: border-box;
     }
 
@@ -134,30 +132,57 @@
       background: rgba(0, 0, 0, 0.7);
       width: 100%;
       box-sizing: border-box;
+      position: fixed;
+      bottom: 0;
     }
 
     /* Responsive Styles */
     @media (max-width: 768px) {
-      .logo-right {
-        font-size: 1.2em;
-        margin-right: 30px;
+      .navbar {
+        padding: 10px;
       }
 
-      .nav-buttons a {
-        font-size: 1.1em;
-        padding: 8px 14px;
+      .nav-links a {
+        font-size: 1em;
+      }
+
+      .content {
+        padding: 10px;
+      }
+
+      .file-upload {
+        padding: 15px;
+        width: 100%;
+      }
+
+      .file-upload button {
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      .qr-feedback {
+        font-size: 0.8em;
+        padding: 10px;
       }
     }
 
     @media (max-width: 480px) {
-      .logo-right {
-        font-size: 1.1em;
-        margin-right: 20px;
+      .navbar {
+        padding: 8px;
       }
 
-      .nav-buttons a {
-        font-size: 1em;
-        padding: 6px 12px;
+      .nav-links a {
+        font-size: 0.9em;
+      }
+
+      .file-upload button {
+        width: 90%;
+        margin: 0 auto;
+      }
+
+      .qr-feedback {
+        font-size: 0.7em;
+        padding: 8px;
       }
     }
   </style>
@@ -166,11 +191,8 @@
 
   <!-- Navbar -->
   <div class="navbar">
-    <!-- Logo on the right -->
-    <div class="logo-right">Lonyibe Tools</div>
-
-    <!-- Static Navigation Buttons -->
-    <div class="nav-buttons">
+    <div class="logo">Lonyibe Tools</div>
+    <div class="nav-links">
       <a href="#home">Home</a>
       <a href="#tools">Tools</a>
       <a href="#contact">Contact Us</a>
@@ -179,6 +201,7 @@
 
   <!-- Content -->
   <div class="content">
+    <h2>Welcome to Lonyibe Tools</h2>
     <div class="file-upload">
       <input type="file" id="qrInput" accept="image/*">
       <button onclick="decodeQRCode()">Decode Now</button>
