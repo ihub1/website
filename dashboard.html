@@ -164,6 +164,10 @@
         text-transform: uppercase;
       }
 
+      .navbar i {
+        margin-right: 10px; /* Adjust margin for icons */
+      }
+
       /* Hamburger Icon Positioning */
       .navbar .hamburger {
         display: block;
@@ -293,7 +297,7 @@
     function logout() {
       auth.signOut()
         .then(() => {
-          // Redirect to login page after successful logout
+          // Redirect to login page
           window.location.href = "index.html";
         })
         .catch((error) => {
