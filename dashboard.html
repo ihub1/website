@@ -33,6 +33,7 @@
       align-items: center;
       color: white;
       background: transparent;
+      position: relative;
     }
 
     .navbar .nav-links {
@@ -69,11 +70,22 @@
       cursor: pointer;
       font-size: 1em;
       transition: background-color 0.3s ease, transform 0.3s ease;
+      position: absolute;  /* Positioning the logout button */
+      right: 20px;  /* Position to the right */
+      top: 20px;    /* Adjust for proper alignment */
+      z-index: 1;
     }
 
     .navbar .logout-btn:hover {
       background-color: #007bff;
       transform: scale(1.05);
+    }
+
+    /* Hamburger Menu */
+    .navbar .hamburger {
+      display: none;
+      cursor: pointer;
+      font-size: 2em;
     }
 
     /* Main Content Styling */
@@ -82,86 +94,78 @@
       padding: 50px 20px;
     }
 
-    .main-content h1 {
-      color: #ffffff;
-      margin-bottom: 20px;
-      font-size: 3em;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-
-    .main-content p {
-      font-size: 1.5em;
-      color: #dddddd;
-      margin-bottom: 20px;
-      font-style: italic;
-      text-transform: capitalize;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    /* Hover animation */
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Footer */
-    footer {
-      color: white;
-      text-align: center;
-      padding: 10px;
-      background: transparent;
-    }
-
-    /* Section Buttons */
-    .main-content button {
-      background-color: #007bff;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .main-content button:hover {
-      background-color: #0056b3;
-      transform: scale(1.05);
-    }
-
     /* Mobile Responsiveness */
     @media (max-width: 768px) {
-      /* Make Navbar Links Stack Vertically */
       .navbar .nav-links {
+        display: none;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        position: absolute;
+        top: 60px; /* Adjust to fill top space */
+        left: 0;
+        background: rgba(0, 0, 0, 0.8);
+        width: 100%;
+        padding: 10px 0;
+        transition: all 0.3s ease;
+      }
+
+      .navbar .nav-links.active {
+        display: flex;
       }
 
       .navbar a {
         margin: 10px 0;
-        font-size: 1.1em;
+        padding: 10px 20px;
+        font-size: 1.2em;
+        text-align: left;
+        width: 100%;
+        text-transform: uppercase;
       }
 
-      /* Main Content Adjustments */
-      .main-content h1 {
-        font-size: 2.5em;
+      .navbar .hamburger {
+        display: block;
+        z-index: 9999;
       }
-
-      .main-content p {
-        font-size: 1.3em;
-      }
-
-      .main-content button {
-        font-size: 1.1em;
-        padding: 12px 25px;
+      
+      /* Move the logout button behind the "Contact Us" button on small screens */
+      .navbar .logout-btn {
+        top: 110px; /* Ensure the logout button is behind the contact us button */
+        right: 20px;
+        z-index: 0; /* Send logout button to the background */
       }
     }
 
     /* Extra Small Devices (Phone Portrait) */
     @media (max-width: 480px) {
+      .navbar .nav-links {
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 0;  /* Adjust the top position for full width */
+        left: 0;
+        width: 100%;
+      }
+
+      .navbar .hamburger {
+        font-size: 2.5em;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        z-index: 1;
+      }
+
+      .navbar a {
+        margin: 10px 0;
+      }
+
+      .navbar .logout-btn {
+        font-size: 0.9em;
+        padding: 5px 10px;
+        top: 140px;  /* Adjust to be below the navigation */
+        right: 20px;
+        z-index: 0;
+      }
+
       .main-content h1 {
         font-size: 2em;
         margin-bottom: 15px;
@@ -175,20 +179,6 @@
       .main-content button {
         font-size: 1.1em;
         padding: 10px 20px;
-      }
-
-      .navbar .nav-links {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .navbar a {
-        margin: 8px 0;
-      }
-
-      .navbar .logout-btn {
-        font-size: 0.9em;
-        padding: 5px 10px;
       }
     }
   </style>
@@ -205,6 +195,10 @@
       <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
     </div>
     <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    <!-- Hamburger Icon -->
+    <div class="hamburger" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
   </div>
 
   <!-- Main Content -->
@@ -217,7 +211,6 @@
   <div class="main-content" id="tools">
     <h1>Tools</h1>
     <p>Explore a range of tools designed to make your tasks easier.</p>
-    <!-- Explore Tools Button -->
     <button onclick="window.location.href='exploretools.html'">Explore Tools</button>
   </div>
 
@@ -277,6 +270,12 @@
         .catch((error) => {
           console.error("Logout failed:", error);
         });
+    }
+
+    // Mobile Menu Toggle
+    function toggleMenu() {
+      const navLinks = document.querySelector('.navbar .nav-links');
+      navLinks.classList.toggle('active');
     }
   </script>
 </body>
