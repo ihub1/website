@@ -74,6 +74,7 @@
       right: 20px;  /* Position to the right */
       top: 20px;    /* Adjust for proper alignment */
       z-index: 1;
+      display: none; /* Hide logout button initially */
     }
 
     .navbar .logout-btn:hover {
@@ -126,7 +127,7 @@
         display: block;
         z-index: 9999;
       }
-      
+
       /* Move the logout button behind the "Contact Us" button on small screens */
       .navbar .logout-btn {
         top: 110px; /* Ensure the logout button is behind the contact us button */
@@ -275,7 +276,14 @@
     // Mobile Menu Toggle
     function toggleMenu() {
       const navLinks = document.querySelector('.navbar .nav-links');
+      const logoutBtn = document.querySelector('.navbar .logout-btn');
       navLinks.classList.toggle('active');
+      // Toggle the visibility of the logout button
+      if (navLinks.classList.contains('active')) {
+        logoutBtn.style.display = 'block';
+      } else {
+        logoutBtn.style.display = 'none';
+      }
     }
   </script>
 </body>
