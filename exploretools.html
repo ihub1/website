@@ -36,7 +36,7 @@
     }
 
     .content {
-      padding: 100px 20px 20px; /* Spacing for navbar */
+      padding: 100px 20px 20px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -46,9 +46,9 @@
     }
 
     .file-upload {
-      margin: 20px 0;
+      margin: 10px 0;
       background-color: rgba(255, 255, 255, 0.9);
-      padding: 30px;
+      padding: 20px;
       border-radius: 10px;
       width: 90%;
       max-width: 500px;
@@ -111,27 +111,31 @@
     /* Responsive styles for smaller screens */
     @media (max-width: 768px) {
       .content {
-        padding: 80px 10px 20px; /* Adjust for smaller screens */
+        padding: 70px 10px 20px; /* Reduced padding for smaller screens */
       }
 
       .file-upload {
-        padding: 20px;
+        padding: 15px;
         width: 100%;
       }
 
       .file-upload button {
         width: 80%;
-        margin: 0 auto; /* Center button on smaller screens */
+        margin: 0 auto;
       }
 
       .qr-feedback {
-        font-size: 0.8em; /* Adjust font size for smaller screens */
+        font-size: 0.8em;
         padding: 10px;
       }
     }
 
     /* Responsive styles for extra small screens */
     @media (max-width: 480px) {
+      .content {
+        padding: 50px 10px 20px; /* Push contents further up on extra small screens */
+      }
+
       .file-upload button {
         width: 90%;
         margin: 0 auto;
